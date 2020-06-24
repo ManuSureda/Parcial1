@@ -2,6 +2,9 @@ package com.utn.TPFinal.parcial;
 
 import com.utn.TPFinal.controller.model.CallController;
 import com.utn.TPFinal.projections.CallsProjection;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +23,11 @@ public class ParcialController {
     }
 
     @GetMapping("/top")
+    @ApiOperation(value = "returns the 10 destinations most called by the specified dni")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200,message = "List of most called destination"),
+            @ApiResponse(code = 204,message = "empty call list")
+    })
     public ResponseEntity<List<CallsProjection>> getTopTenDestinations(@RequestParam String dni) {
 
         List<CallsProjection> callDestination = callController.getTopTenDestinations(dni);
